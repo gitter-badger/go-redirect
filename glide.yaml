@@ -1,0 +1,10 @@
+package: github.com/0rax/go-redirect
+import:
+- package: github.com/BurntSushi/toml
+- package: github.com/codegangsta/negroni
+- package: github.com/google/go-github
+  subpackages:
+  - github
+- package: github.com/gorilla/mux
+- package: github.com/mrjones/oauth
+- package: golang.org/x/oauth2

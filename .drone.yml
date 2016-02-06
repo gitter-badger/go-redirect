@@ -1,0 +1,43 @@
+clone:
+  path: github.com/0rax/go-redirect
+
+build:
+  image: golang:1.5-alpine
+  environment:
+    GO15VENDOREXPERIMENT: 1
+  commands:
+   - apk add -qU curl git cvs
+   - curl -sL https://github.com/Masterminds/glide/releases/download/0.8.3/glide-0.8.3-linux-amd64.tar.gz | tar xfz - linux-amd64/glide -C /tmp
+   - mv /tmp/linux-amd64/glide /usr/local/bin/glide
+   - glide -q install
+   - go build
+
+cache:
+  mount:
+   - vendor
+
+publish:
+  docker:
+    storage_driver: overlay
+    username: $$DOCKER_USER
+    password: $$DOCKER_PASSWORD
+    email: $$DOCKER_EMAIL
+    registry: docker.io
+    repo: orax/go-redirect
+    file: Dockerfile
+    insecure: false
+    tag: $$TAG
+    when:
+      repo: 0rax/go-redirect
+      event: tag
+
+  docker:
+    storage_driver: overlay
+    username: $$DOCKER_USERNAME
+    password: $$DOCKER_PASSWORD
+    email: $$DOCKER_EMAIL
+    repo: orax/go-redirect
+    tag: $${BRANCH/master/latest}
+    when:
+      repo: 0rax/go-redirect
+      branch: [develop, master]

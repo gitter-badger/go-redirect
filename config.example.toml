@@ -1,0 +1,19 @@
+WebServer = "0.0.0.0:8000"
+
+[Backend]
+[[Backend.Bitbucket]]
+Priority    = 20
+Org         = "orax"
+OAuthKey    = ""
+OAuthSecret = ""
+Path        = "bitbucket"
+[[Backend.Github]]
+Priority    = 10
+Org         = "0rax"
+Path        = "github"
+OAuthToken  = ""
+[[Backend.Github]]
+Priority    = 30
+Path        = "github2"
+Org         = "gogits"
+OAuthToken  = ""
